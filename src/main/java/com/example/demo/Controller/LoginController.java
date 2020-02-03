@@ -19,7 +19,10 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
-
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
+    }
     @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
@@ -53,7 +56,6 @@ public class LoginController {
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");
-
         }
         return modelAndView;
     }
@@ -65,7 +67,7 @@ public class LoginController {
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-        modelAndView.setViewName("admin/home");
+        modelAndView.setViewName("index");
         return modelAndView;
     }
 
